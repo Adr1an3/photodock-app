@@ -1,4 +1,199 @@
+:root {
+  --accentColor: #f77f51;
+  --textColorLight: #999;
+  --textColor: #686868;
+  --textColorDark: #515151;
+}
+
 body {
   font-family: "Dosis", arial, sans-serif;
+  font-weight: bold;
   background-color: #131313;
+  color: var(--textColor);
+}
+
+h1 {
+  background-color: #1a1a1a;
+  padding: 1.2rem 0;
+}
+h1 .color {
+  color: var(--accentColor);
+  font-weight: bold;
+}
+
+.breadcrumb {
+  padding: 0.5rem;
+  font-weight: bold;
+}
+.breadcrumb ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.breadcrumb li:not(:last-child)::after {
+  display: inline-block;
+  margin: 0 0.5rem;
+  content: "/";
+}
+
+#myImgsBtn {
+  border: none;
+  background: none;
+  font-weight: bold;
+  color: var(--textColor);
+  padding: 0;
+}
+#myImgsBtn:hover {
+  color: var(--textColorDark);
+}
+
+a:link, a:active, a:visited {
+  text-decoration: none;
+  color: var(--textColor);
+}
+a.active {
+  color: var(--accentColor);
+}
+a:hover:not(.active) {
+  color: var(--textColorDark);
+}
+
+form {
+  display: flex;
+  position: relative;
+}
+
+input {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  padding: 0.4rem;
+  padding-left: 1rem;
+  font-family: inherit;
+  font-weight: bold;
+  color: var(--textColorLight);
+}
+input:focus {
+  outline: none;
+}
+
+#searchBtn {
+  position: absolute;
+  right: 12px;
+  border: none;
+  border-radius: 8px;
+  height: 100%;
+  width: 30%;
+  background-color: #272727;
+  color: var(--textColor);
+  font-weight: bold;
+  transition: all 0.5s;
+}
+#searchBtn:hover {
+  color: var(--accentColor);
+}
+
+::placeholder {
+  font-weight: bold;
+}
+
+.content {
+  border: 2px dashed #272727;
+  border-radius: 1rem;
+  min-height: 200px;
+  padding: 1rem;
+}
+
+.moji {
+  transition: all 0.5s;
+}
+.moji:hover {
+  color: var(--accentColor);
+  cursor: pointer;
+}
+
+#date {
+  margin-bottom: 0;
+  text-align: end;
+}
+
+.errorDisplay {
+  margin-top: -2rem;
+  color: #ff6060;
+}
+
+.bi-x {
+  cursor: pointer;
+}
+.bi-heart {
+  color: #ff6060;
+}
+.bi-card-image {
+  font-size: 8rem;
+  display: block;
+  text-align: center;
+  color: #1b1b1b;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .results {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.imgCard {
+  border: 2px dashed #1b1b1b;
+  border-radius: 0.5rem;
+  transition: all 0.5s;
+}
+.imgCard img {
+  border-radius: 0.5rem;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+}
+.imgCard:hover {
+  border-color: var(--textColorDark);
+}
+.imgCard p {
+  margin: 0.4rem 1rem;
+  color: #444;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 760px) {
+  .imgCard img {
+    height: 150px;
+  }
+}
+.col {
+  font-variant: var(--textColor);
+}
+
+#dlBtn,
+.saveBtn {
+  display: inline-block;
+  margin: 0.4rem 1rem;
+  border: none;
+  background-color: #131313;
+  font-weight: bold;
+  color: var(--textColor);
+  text-decoration: none;
+  cursor: pointer;
+}
+#dlBtn:hover,
+.saveBtn:hover {
+  color: var(--accentColor);
+}
+
+.hidden {
+  display: none;
 }

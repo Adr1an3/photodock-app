@@ -29,5 +29,72 @@
     <script src="js/script.js"></script>
   </head>
 
-  <body></body>
+  <body>
+    <!-- Header -->
+    <header>
+      <h1 class="text-center">
+        <i class="bi bi-download me-3"></i>Photo<span class="color">Dock</span>
+      </h1>
+    </header>
+
+    <div class="container">
+      <!-- Navigation Bar -->
+      <div class="navbar pt-3 mb-3">
+        <!-- Navigation -->
+        <nav class="breadcrumb mb-0" aria-label="Breadcrumb">
+          <ul>
+            <li>
+              <i class="bi bi-search me-2"></i>
+              <a href="" class="active">Search</a>
+            </li>
+            <li>
+              <i class="bi bi-folder me-2"></i
+              ><button id="myImgsBtn">My Images</button>
+            </li>
+            <li>
+              <i class="bi bi-person-circle me-2"></i>
+              <a href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- Date -->
+        <p id="date"></p>
+      </div>
+
+      <!-- Search -->
+      <div class="row justify-content-center mb-5" id="search">
+        <form class="col-9 col-lg-6">
+          <input type="text" placeholder="Search" id="inputSearch" />
+          <button id="searchBtn">
+            <i class="bi bi-search me-2"></i>Search
+          </button>
+        </form>
+      </div>
+
+      <!-- Search API errors -->
+      <div class="errorDisplay hidden">
+        <p class="text-center">
+          <i class="bi bi-bug me-2"></i>An error has occured with the API,
+          please try again shortly.
+          <i class="bi bi-x" id="errorMsgCloseBtn"></i>
+        </p>
+      </div>
+
+      <!-- Display Search Results -->
+      <div class="results content mb-3">
+        <span><i class="bi bi-card-image"></i></span>
+        <span><i class="bi bi-card-image"></i></span>
+        <span><i class="bi bi-card-image"></i></span>
+        <span><i class="bi bi-card-image"></i></span>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        <p class="text-center">
+          <i class="bi bi-c-circle me-2"></i> 2023 - Adrian
+          <span class="ms-2 moji">(づ ◕‿◕ )づ</span>
+        </p>
+      </footer>
+    </div>
+  </body>
 </html>
