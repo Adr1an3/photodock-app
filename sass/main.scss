@@ -43,14 +43,15 @@ h1 {
   }
 }
 
-#myImgsBtn {
+#myImgsBtn,
+.srcBtn {
   border: none;
   background: none;
   font-weight: bold;
   color: var(--textColor);
   padding: 0;
 
-  &:hover {
+  &:hover:not(.active) {
     color: var(--textColorDark);
   }
 }
@@ -63,13 +64,13 @@ a {
     color: var(--textColor);
   }
 
-  &.active {
-    color: var(--accentColor);
-  }
-
   &:hover:not(.active) {
     color: var(--textColorDark);
   }
+}
+
+.active {
+  color: var(--accentColor);
 }
 
 form {

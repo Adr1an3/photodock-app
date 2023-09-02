@@ -8,6 +8,7 @@ const searchBtn = document.getElementById("searchBtn");
 const myImgsBtn = document.getElementById("myImgsBtn");
 const dateEl = document.getElementById("date");
 const results = document.querySelector(".results");
+const srcBtn = document.querySelector(".srcBtn");
 const errorMsgDisplay = document.querySelector(".errorDisplay");
 const errorMsgCloseBtn = document.getElementById("errorMsgCloseBtn");
 
@@ -21,10 +22,12 @@ const date = new Date().toDateString();
 /* Displays the on page */
 dateEl.textContent = date;
 
-/* Search button */
+/* Search Input button */
 searchBtn.addEventListener("click", getData);
 /* My Images button */
 myImgsBtn.addEventListener("click", getMyImgs);
+/* Search Link Button */
+srcBtn.addEventListener("click", getData);
 
 /* Async function gets data from Pixabay API and handles errors */
 async function getData(e) {
@@ -139,6 +142,7 @@ class Card {
 
 /* Function handling the My Images display */
 function getMyImgs() {
+  if (!myImages.length) return;
   results.innerHTML = ""; // Resets the results HTML element
   getMyImgsData(); // Displays saved images data
 }
