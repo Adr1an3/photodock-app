@@ -73,6 +73,10 @@ a {
   color: var(--accentColor);
 }
 
+#myImgsBtn.active {
+  color: var(--accentColor);
+}
+
 form {
   display: flex;
   position: relative;
@@ -214,6 +218,33 @@ input {
   color: var(--textColor);
   text-decoration: none;
   cursor: pointer;
+
+  &:hover {
+    color: var(--accentColor);
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+
+  & p {
+    margin-bottom: 0;
+    align-self: center;
+  }
+}
+
+#prevBtn,
+#nextBtn {
+  border: 2px solid #272727;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: bold;
+  width: 6rem;
+  color: var(--textColor);
+  background-color: transparent;
 
   &:hover {
     color: var(--accentColor);

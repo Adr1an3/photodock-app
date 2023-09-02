@@ -11,11 +11,16 @@ const results = document.querySelector(".results");
 const srcBtn = document.querySelector(".srcBtn");
 const errorMsgDisplay = document.querySelector(".errorDisplay");
 const errorMsgCloseBtn = document.getElementById("errorMsgCloseBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const pageNumber = document.getElementById("pageNumber");
 
 const baseURL = "https://pixabay.com/api/"; // Base API URL
 const APIKey = "39082400-fac34d819e017488f4fee53ca"; // API key
 
 const myImages = []; // Stores saved images IDs
+let pageNum = 1; // Stores current page number
+let totalPages; // Stores the total pages
 
 /* Gets current date and adds it to the DateEl */
 const date = new Date().toDateString();
@@ -31,7 +36,16 @@ srcBtn.addEventListener("click", getData);
 
 /* Async function gets data from Pixabay API and handles errors */
 async function getData(e) {
-  e.preventDefault(); // Prevents refreshing
+  if (e) e.preventDefault(); // Prevents refreshing
+  /* Show next and prev buttons */
+  prevBtn.classList.remove("hidden");
+  nextBtn.classList.remove("hidden");
+  pageNumber.classList.remove("hidden");
+  /* Add active class to Search list button and remove from My Images button */
+  if (!srcBtn.classList.contains("active")) {
+    srcBtn.classList.add("active");
+    myImgsBtn.classList.remove("active");
+  }
   /* Try and Catch error handling */
   try {
     const searchQuery = inputSearch.value; // Get input value
@@ -39,10 +53,14 @@ async function getData(e) {
     /* Guard Clause: do not run code if there's no input */
     if (!searchQuery.length) return;
     /* Makes a fetch request with the search query and returns a promise */
-    const res = await fetch(`${baseURL}?key=${APIKey}&q=${searchQuery}`);
+    const res = await fetch(
+      `${baseURL}?key=${APIKey}&q=${searchQuery}&page=${pageNum}`
+    );
     const data = await res.json(); // Parse the JSON data
     const imageList = data.hits; // Get image data
+    totalPages = data.totalHits; // Set the total amount of pages
     displayData(imageList); // Call display function
+    pageNumber.textContent = `Page: ${pageNum}`;
   } catch (error) {
     /* Display error message */
     errorMsgDisplay.classList.remove("hidden");
@@ -144,6 +162,15 @@ class Card {
 function getMyImgs() {
   if (!myImages.length) return;
   results.innerHTML = ""; // Resets the results HTML element
+  /* Hide prev and next buttons */
+  prevBtn.classList.add("hidden");
+  nextBtn.classList.add("hidden");
+  pageNumber.classList.add("hidden");
+  if (!myImgsBtn.classList.contains("active")) {
+    myImgsBtn.classList.add("active");
+    srcBtn.classList.remove("active");
+  }
+
   getMyImgsData(); // Displays saved images data
 }
 
@@ -176,3 +203,19 @@ function getMyImgsData() {
     myImgsData();
   });
 }
+
+/* Prev and Next button functionality */
+prevBtn.addEventListener("click", () => {
+  /* If page number is 1 do nothing */
+  if (pageNum === 1) return;
+  pageNum--; // Page number -1;
+  getData(); // Call get data function
+});
+
+nextBtn.addEventListener("click", () => {
+  let pages = totalPages / 20;
+  /* Do nothing if the page number is equal to total amount of pages */
+  if (pageNum === pages) return;
+  pageNum++; // Page number +1;
+  getData(); // Run get data function
+});
