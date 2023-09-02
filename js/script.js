@@ -23,7 +23,8 @@ dateEl.textContent = date;
 
 /* Search button */
 searchBtn.addEventListener("click", getData);
-// myImgsBtn.addEventListener("click", getMyImgs);
+/* My Images button */
+myImgsBtn.addEventListener("click", getMyImgs);
 
 /* Async function gets data from Pixabay API and handles errors */
 async function getData(e) {
@@ -65,5 +66,107 @@ function displayData(imgs) {
     divEl.innerHTML = cardData.createElement();
     /* Append Div to HTML results element */
     results.appendChild(divEl);
+  });
+}
+
+/* Get image ID from data */
+results.addEventListener("click", e => {
+  const imgID = e.target.closest("div").id; // Image ID
+  /* Add ID to myImage variable if it doesn't already exist */
+  if (!myImages.find(el => el === imgID)) {
+    /* Only work if element contains saveBtn class */
+    if (e.target.classList.contains("saveBtn")) {
+      myImages.push(imgID); // Add image ID to myImages array
+      /* Set new icon and text */
+      e.target.innerHTML = `<i class="bi bi-archive-fill me-2"></i> Saved`;
+      e.target.style.color = "yellowgreen"; // Set new color
+    }
+  } else {
+    /* Only work if element contains saveBtn class */
+    if (e.target.classList.contains("saveBtn")) {
+      /* If ID already exists delete the ID from the myImages array */
+      myImages.splice(myImages.indexOf(imgID), 1);
+      /* Sets the icon and text back to default */
+      e.target.innerHTML = `<i class="bi bi-archive me-2"></i> Save`;
+      e.target.style.color = "#686868";
+    }
+  }
+});
+
+/* Creates a class with all the card properties and card logic */
+class Card {
+  /* Constructor function uses destructuring and renames some variables */
+  constructor({
+    webformatURL: webURL,
+    type,
+    imageWidth: width,
+    imageHeight: height,
+    imageSize: size,
+    tags,
+    likes,
+    largeImageURL: largeImgURL,
+    id,
+  }) {
+    /* Class Properties */
+    this.webURL = webURL;
+    this.type = type;
+    this.width = width;
+    this.height = height;
+    this.size = size;
+    this.tags = tags;
+    this.likes = likes;
+    this.largeImgURL = largeImgURL;
+    this.id = id;
+  }
+
+  /* Creates the HTML for creating a card */
+  createElement() {
+    return `<img src="${this.webURL}" style="width:100%" />
+    <p>Type: <span class="col">${this.type}</span></p>
+    <p>Width / Height: <span class="col">${this.width}x${this.height}</span></p>
+    <p>Size: <span class="col">${(this.size / 1000000).toFixed(1)}</span>mb</p>
+    <p>Tags: <span class="col">${this.tags}</span></p>
+    <p><i class="bi bi-heart me-2"></i>${this.likes}</p>
+    <a href=${
+      this.largeImgURL
+    } target="_blank" id="dlBtn" download><i class="bi bi-download me-2"></i>Download</a>
+    <button type="button" class="saveBtn"><i class="bi bi-archive me-2"></i>Save</button>
+    `;
+  }
+}
+
+/* Function handling the My Images display */
+function getMyImgs() {
+  results.innerHTML = ""; // Resets the results HTML element
+  getMyImgsData(); // Displays saved images data
+}
+
+function getMyImgsData() {
+  /* For each ID in myImages array */
+  myImages.forEach(el => {
+    async function myImgsData() {
+      /* Fetch request with saved image IDs */
+      const res = await fetch(`${baseURL}?key=${APIKey}&id=${el}`);
+      const data = await res.json(); // Parses the JSON data
+      const myImgsData = data.hits; // Gets the image objects
+
+      const divEl = document.createElement("div"); // Creates a Div
+      divEl.classList.add("imgCard"); // Adds a imgCard class
+      /* Sets a tab index, making the div tabbable  */
+      divEl.setAttribute("tabindex", "0");
+      /* Sets the id to image ID */
+      divEl.id = data.hits[0].id;
+      /* Creates new cards */
+      const cardData = new Card(...myImgsData);
+      /* Creates card element */
+      divEl.innerHTML = cardData.createElement();
+      /* Appends Div to results HTML elements */
+      results.appendChild(divEl);
+      /* Remove the save button from the images in My Images */
+      document
+        .getElementById(`${data.hits[0].id}`)
+        .removeChild(document.querySelector(".saveBtn"));
+    }
+    myImgsData();
   });
 }
