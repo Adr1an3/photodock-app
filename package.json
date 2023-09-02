@@ -1,0 +1,14 @@
+{
+  "name": "photodock-app",
+  "version": "1.0.0",
+  "description": "A simple photo fetch app",
+  "main": "index.js",
+  "scripts": {
+    "watch:sass": "sass --no-source-map --watch sass/main.scss css/style.css"
+  },
+  "author": "adrian",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.66.1"
+  }
+}
