@@ -3,7 +3,7 @@
 /* -- A simple fetch photo app using the Pixabay API, search images using the search bar, download an image using the download button or save an image for later using the save button, check saved images by click the My Images button -- */
 
 /* Select all initial interactive page elements */
-const inputSearch = document.getElementById("searchInput");
+const inputSearch = document.getElementById("inputSearch");
 const searchBtn = document.getElementById("searchBtn");
 const myImgsBtn = document.getElementById("myImgsBtn");
 const dateEl = document.getElementById("date");
@@ -23,6 +23,7 @@ dateEl.textContent = date;
 
 /* Search button */
 searchBtn.addEventListener("click", getData);
+// myImgsBtn.addEventListener("click", getMyImgs);
 
 /* Async function gets data from Pixabay API and handles errors */
 async function getData(e) {
@@ -44,4 +45,25 @@ async function getData(e) {
       errorMsgDisplay.classList.add("hidden");
     });
   }
+}
+
+/* Display the data on the page */
+function displayData(imgs) {
+  results.innerHTML = ""; // Reset results and remove current HTMl elements
+  /* For each image creates HTML and appends it to the document */
+  imgs.forEach((el, ind) => {
+    //el: image data object, ind: index in array
+    const divEl = document.createElement("div"); // Creates a div
+    divEl.classList.add("imgCard"); // Adds imgCard class
+    /* Sets a tab index making the div tabbable */
+    divEl.setAttribute("tabindex", "0");
+    divEl.id = el.id; // Gives the Div an ID
+
+    /* Creates a card with data from the image data object */
+    const cardData = new Card(el);
+    /* Append card to Div element */
+    divEl.innerHTML = cardData.createElement();
+    /* Append Div to HTML results element */
+    results.appendChild(divEl);
+  });
 }
