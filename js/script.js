@@ -33,6 +33,8 @@ async function getData(e) {
   try {
     const searchQuery = inputSearch.value; // Get input value
     inputSearch.blur(); // Remove focus from search input
+    /* Guard Clause: do not run code if there's no input */
+    if (!searchQuery.length) return;
     /* Makes a fetch request with the search query and returns a promise */
     const res = await fetch(`${baseURL}?key=${APIKey}&q=${searchQuery}`);
     const data = await res.json(); // Parse the JSON data
