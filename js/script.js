@@ -14,6 +14,7 @@ const errorMsgCloseBtn = document.getElementById("errorMsgCloseBtn");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const pageNumber = document.getElementById("pageNumber");
+const buttons = document.querySelector(".buttons");
 
 const baseURL = "https://pixabay.com/api/"; // Base API URL
 const APIKey = "39082400-fac34d819e017488f4fee53ca"; // API key
@@ -41,6 +42,7 @@ async function getData(e) {
   prevBtn.classList.remove("hidden");
   nextBtn.classList.remove("hidden");
   pageNumber.classList.remove("hidden");
+
   /* Add active class to Search list button and remove from My Images button */
   if (!srcBtn.classList.contains("active")) {
     srcBtn.classList.add("active");
@@ -74,6 +76,8 @@ async function getData(e) {
 /* Display the data on the page */
 function displayData(imgs) {
   results.innerHTML = ""; // Reset results and remove current HTMl elements
+  prevBtn.removeAttribute("disabled"); // Remove disabled attribute
+  nextBtn.removeAttribute("disabled"); // Remove disabled attribute
   /* For each image creates HTML and appends it to the document */
   imgs.forEach((el, ind) => {
     //el: image data object, ind: index in array
@@ -215,7 +219,7 @@ prevBtn.addEventListener("click", () => {
 nextBtn.addEventListener("click", () => {
   let pages = totalPages / 20;
   /* Do nothing if the page number is equal to total amount of pages */
-  if (pageNum === pages) return;
+  if (pageNum === pages || inputSearch.length < 1) return;
   pageNum++; // Page number +1;
   getData(); // Run get data function
 });
