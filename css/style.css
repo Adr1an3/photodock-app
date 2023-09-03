@@ -230,3 +230,14 @@ input:focus {
 .hidden {
   display: none;
 }
+
+.box {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  height: 50vh;
+}
+
+#mojiBig {
+  margin-bottom: 2.4rem;
+}
